@@ -50,4 +50,14 @@ public class SaleMinDTO {
 	public LocalDate getDate() {
 		return date;
 	}
+
+	@Override
+	public String toString() {
+		return "SaleMinDTO{" +
+				"id=" + id +
+				", amount=" + amount +
+				", date=" + date +
+				", sellerName='" + sellerName + '\'' +
+				'}';
+	}
 }

@@ -3,6 +3,7 @@ package com.devsuperior.dsmeta.services;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +27,12 @@ public class SaleService {
 		return new SaleMinDTO(entity);
 	}
 
-	public Page<SaleMinDTO> getReport(String dataInicial, String dataFinal, String namePart, Pageable pageable) {
+	public List<SaleMinDTO> getReport(String dataInicial, String dataFinal, String nome) {
+		System.out.println(dataInicial+"\t"+dataFinal+"\tnome="+ nome);
 		LocalDate dataMaxima = fomataDataMaxima(dataFinal);
 		LocalDate dataMinima = formataDataMinima(dataInicial, dataMaxima);
-
-		return repository.searchReport(dataMinima, dataMaxima, namePart, pageable);
+		System.out.println(dataMinima+"\t"+dataMaxima+"\t"+ nome);
+		return repository.searchReport(dataMinima, dataMaxima, nome);
 	}
 
 	private LocalDate fomataDataMaxima(String dataFinal) {
