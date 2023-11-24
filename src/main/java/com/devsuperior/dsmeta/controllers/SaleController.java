@@ -30,9 +30,9 @@ public class SaleController {
 		return null;
 	}
 
-	@GetMapping(value = "/summary")
-	public ResponseEntity<?> getSummary() {
-		// TODO
-		return null;
-	}
+//	@GetMapping(value = "/summary")
+//	public ResponseEntity<?> getSummary() {
+//		// TODO
+//		return null;
+//	}
 }
