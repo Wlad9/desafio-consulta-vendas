@@ -5,7 +5,10 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+import com.devsuperior.dsmeta.dto.SmryDTO;
+import com.devsuperior.dsmeta.projection.SmryProjection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,10 +31,8 @@ public class SaleService {
 	}
 
 	public List<SaleMinDTO> getReport(String dataInicial, String dataFinal, String nome) {
-		System.out.println(dataInicial+"\t"+dataFinal+"\tnome="+ nome);
 		LocalDate dataMaxima = fomataDataMaxima(dataFinal);
 		LocalDate dataMinima = formataDataMinima(dataInicial, dataMaxima);
-		System.out.println(dataMinima+"\t"+dataMaxima+"\t"+ nome);
 		return repository.searchReport(dataMinima, dataMaxima, nome);
 	}
 
@@ -49,4 +50,11 @@ public class SaleService {
 		return LocalDate.parse(inicio);
 	}
 
+	public List<SmryDTO> search2(String dataInicial, String dataFinal) {
+		LocalDate dataMaxima = fomataDataMaxima(dataFinal);
+		LocalDate dataMinima = formataDataMinima(dataInicial, dataMaxima);
+		List<SmryProjection> lista = repository.searchSummary(dataMinima, dataMaxima);
+		List<SmryDTO> lista2 = lista.stream().map(x-> new SmryDTO(x)).collect(Collectors.toList());
+		return lista2;
+	}
 }
