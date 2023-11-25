@@ -1,20 +1,20 @@
 package com.devsuperior.dsmeta.dto;
 
-import com.devsuperior.dsmeta.projection.SmryProjection;
+import com.devsuperior.dsmeta.projection.SumaryProjection;
 
-public class SmryDTO {
+public class SumaryDTO {
     private String sellerName;
     private Double total;
 
-    public SmryDTO() {
+    public SumaryDTO() {
     }
 
-    public SmryDTO(String sellerName, Double total) {
+    public SumaryDTO(String sellerName, Double total) {
         this.sellerName = sellerName;
         this.total = total;
     }
 
-    public SmryDTO(SmryProjection proj) {
+    public SumaryDTO(SumaryProjection proj) {
         sellerName = proj.getSellerName();
         total = proj.getTotal();
     }

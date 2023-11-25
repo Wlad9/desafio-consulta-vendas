@@ -1,6 +1,6 @@
 package com.devsuperior.dsmeta.projection;
 
-public interface SmryProjection {
+public interface SumaryProjection {
 
     String getSellerName();
     Double getTotal();

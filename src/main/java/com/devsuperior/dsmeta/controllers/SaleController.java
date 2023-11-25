@@ -1,9 +1,7 @@
 package com.devsuperior.dsmeta.controllers;
 
-import com.devsuperior.dsmeta.dto.SmryDTO;
+import com.devsuperior.dsmeta.dto.SumaryDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,9 +24,9 @@ public class SaleController {
 		return ResponseEntity.ok(dto);
 	}
 	@GetMapping(value = "/report")
-	public ResponseEntity<List<SaleMinDTO>> search1(@RequestParam(name = "minDate", required = false) String minDate,
-													@RequestParam(name = "maxDate", required = false) String maxDate,
-													@RequestParam(name = "name", required = false, defaultValue = "") String name){
+	public ResponseEntity<List<SaleMinDTO>> getReport(@RequestParam(name = "minDate", required = false) String minDate,
+													  @RequestParam(name = "maxDate", required = false) String maxDate,
+													  @RequestParam(name = "name", required = false, defaultValue = "") String name){
 		System.out.println(minDate+"\t"+maxDate+"\tnome="+ name);
 		List<SaleMinDTO> report = service.getReport(minDate, maxDate, name);
 		for(SaleMinDTO dto: report){
@@ -37,11 +35,10 @@ public class SaleController {
 		return ResponseEntity.status(HttpStatus.OK).body(report);
 	}
 
-
 	@GetMapping(value = "/summary")
-	public ResponseEntity<List<SmryDTO>> getSummary(@RequestParam(name = "minDate", required = false) String minDate,
-													@RequestParam(name = "maxDate", required = false) String maxDate) {
-		List<SmryDTO> sumario = service.search2(minDate, maxDate);
+	public ResponseEntity<List<SumaryDTO>> getSummary(@RequestParam(name = "minDate", required = false) String minDate,
+													  @RequestParam(name = "maxDate", required = false) String maxDate) {
+		List<SumaryDTO> sumario = service.search2(minDate, maxDate);
 		return ResponseEntity.status(HttpStatus.OK).body(sumario);
 	}
 }
