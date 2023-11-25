@@ -11,13 +11,6 @@ public class SaleMinDTO {
 	private Double amount;
 	private LocalDate date;
 	private String sellerName;
-	
-	public SaleMinDTO(Long id, Double amount, LocalDate date, String sellerName) {
-		this.id = id;
-		this.amount = amount;
-		this.date = date;
-		this.sellerName = sellerName;
-	}
 
 	public SaleMinDTO(Sale entity) {
 		id = entity.getId();
@@ -35,8 +28,8 @@ public class SaleMinDTO {
 	// Novo construtor para atender à query
 	public SaleMinDTO(Long id, LocalDate date, Double amount, String sellerName) {
 		this.id = id;
-		this.date = date;
 		this.amount = amount;
+		this.date = date;
 		this.sellerName = sellerName;
 	}
 	public Long getId() {
@@ -49,6 +42,22 @@ public class SaleMinDTO {
 
 	public LocalDate getDate() {
 		return date;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public void setAmount(Double amount) {
+		this.amount = amount;
+	}
+
+	public void setDate(LocalDate date) {
+		this.date = date;
+	}
+
+	public void setSellerName(String sellerName) {
+		this.sellerName = sellerName;
 	}
 
 	@Override

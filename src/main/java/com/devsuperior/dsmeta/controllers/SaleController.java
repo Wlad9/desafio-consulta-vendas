@@ -2,6 +2,8 @@ package com.devsuperior.dsmeta.controllers;
 
 import com.devsuperior.dsmeta.dto.SumaryDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,12 +27,12 @@ public class SaleController {
 	}
 	@GetMapping(value = "/report")
 	public ResponseEntity<List<SaleMinDTO>> getReport(@RequestParam(name = "minDate", required = false) String minDate,
-													  @RequestParam(name = "maxDate", required = false) String maxDate,
-													  @RequestParam(name = "name", required = false, defaultValue = "") String name){
+															@RequestParam(name = "maxDate", required = false) String maxDate,
+															@RequestParam(name = "name", required = false, defaultValue = "") String name){
 		System.out.println(minDate+"\t"+maxDate+"\tnome="+ name);
 		List<SaleMinDTO> report = service.getReport(minDate, maxDate, name);
 		for(SaleMinDTO dto: report){
-			System.out.println(dto);
+			System.out.println("===}"+dto);
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(report);
 	}
