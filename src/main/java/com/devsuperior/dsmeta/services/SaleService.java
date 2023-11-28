@@ -7,9 +7,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.devsuperior.dsmeta.dto.ReportDTO;
 import com.devsuperior.dsmeta.dto.SumaryDTO;
 import com.devsuperior.dsmeta.projection.SumaryProjection;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.devsuperior.dsmeta.dto.SaleMinDTO;
@@ -28,21 +31,16 @@ public class SaleService {
         return new SaleMinDTO(entity);
     }
 
-    public List<SaleMinDTO> getReport(String dataInicial, String dataFinal, String nome) {
+    public Page<List<ReportDTO>> getReport(String dataInicial, String dataFinal, String nome, Pageable pageable) {
         LocalDate dataMaxima = fomataDataMaxima(dataFinal);
         LocalDate dataMinima = formataDataMinima(dataInicial, dataMaxima);
-        return repository.searchReport(dataMinima, dataMaxima, nome);
+        return repository.searchReport(dataMinima, dataMaxima, nome, pageable);
     }
 
     public List<SumaryDTO> search2(String dataInicial, String dataFinal) {
         LocalDate dataMaxima = fomataDataMaxima(dataFinal);
         LocalDate dataMinima = formataDataMinima(dataInicial, dataMaxima);
-        System.out.println("DATA FORMATADA:"+dataMinima+"\t"+dataMaxima);
         List<SumaryProjection> lista = repository.searchSummary(dataMinima, dataMaxima);
-        System.out.println("tamanho:"+lista.size());
-        for(SumaryProjection proj: lista){
-            System.out.println("Nome:"+proj.getSellerName()+"\t Total:"+proj.getTotal());
-        }
         List<SumaryDTO> lista2 = lista.stream().map(x -> new SumaryDTO(x)).collect(Collectors.toList());
         return lista2;
     }

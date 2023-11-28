@@ -1,7 +1,10 @@
 package com.devsuperior.dsmeta.controllers;
 
+import com.devsuperior.dsmeta.dto.ReportDTO;
 import com.devsuperior.dsmeta.dto.SumaryDTO;
+import com.devsuperior.dsmeta.entities.Sale;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -25,22 +28,19 @@ public class SaleController {
 		SaleMinDTO dto = service.findById(id);
 		return ResponseEntity.ok(dto);
 	}
-	@GetMapping(value = "/report")
-	public ResponseEntity<List<SaleMinDTO>> getReport(@RequestParam(name = "minDate", required = false) String minDate,
-															@RequestParam(name = "maxDate", required = false) String maxDate,
-															@RequestParam(name = "name", required = false, defaultValue = "") String name){
-		System.out.println(minDate+"\t"+maxDate+"\tnome="+ name);
-		List<SaleMinDTO> report = service.getReport(minDate, maxDate, name);
-		for(SaleMinDTO dto: report){
-			System.out.println("===}"+dto);
-		}
-		return ResponseEntity.status(HttpStatus.OK).body(report);
-	}
 
 	@GetMapping(value = "/summary")
 	public ResponseEntity<List<SumaryDTO>> getSummary(@RequestParam(name = "minDate", required = false) String minDate,
 													  @RequestParam(name = "maxDate", required = false) String maxDate) {
 		List<SumaryDTO> sumario = service.search2(minDate, maxDate);
 		return ResponseEntity.status(HttpStatus.OK).body(sumario);
+	}
+	@GetMapping(value="/report")
+	public ResponseEntity<Page<List<ReportDTO>>> getReport(
+			@RequestParam(name = "minDate", required = false) String minDate,
+			@RequestParam(name = "maxDate", required = false) String maxDate,
+			@RequestParam(name = "name", required = false, defaultValue = "") String name, Pageable pageable){
+		Page<List<ReportDTO>> result = service.getReport(minDate, maxDate, name, pageable);
+		return ResponseEntity.ok(result);
 	}
 }

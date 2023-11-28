@@ -10,7 +10,7 @@ public class SaleMinDTO {
 	private Long id;
 	private Double amount;
 	private LocalDate date;
-	private String sellerName;
+
 
 	public SaleMinDTO(Sale entity) {
 		id = entity.getId();
@@ -22,7 +22,6 @@ public class SaleMinDTO {
 		id = projection.getId();
 		date = projection.getDate();
 		amount = projection.getAmount();
-		sellerName = projection.getSellerName();
 	}
 
 	// Novo construtor para atender à query
@@ -30,43 +29,39 @@ public class SaleMinDTO {
 		this.id = id;
 		this.amount = amount;
 		this.date = date;
-		this.sellerName = sellerName;
 	}
+
 	public Long getId() {
 		return id;
-	}
-
-	public Double getAmount() {
-		return amount;
-	}
-
-	public LocalDate getDate() {
-		return date;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
 	}
 
+	public Double getAmount() {
+		return amount;
+	}
+
 	public void setAmount(Double amount) {
 		this.amount = amount;
+	}
+
+	public LocalDate getDate() {
+		return date;
 	}
 
 	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 
-	public void setSellerName(String sellerName) {
-		this.sellerName = sellerName;
-	}
 
 	@Override
 	public String toString() {
 		return "SaleMinDTO{" +
 				"id=" + id +
-				", amount=" + amount +
-				", date=" + date +
-				", sellerName='" + sellerName + '\'' +
+				"\n amount=" + amount +
+				"\n date=" + date +
 				'}';
 	}
 }
